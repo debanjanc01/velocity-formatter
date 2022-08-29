@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML 5 Boilerplate</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+      <div class="bordered">
+        <label for="inputBox">Paste the velocity input:</label>
+        <br>
+        <textarea id="inputBox" name="inputBox" rows="10" cols="100"></textarea>
+        <br>
+        <button type="button" class="button" onclick=formatText()>Format</button>
+        <br>
+        <textarea id="outputBox" rows=10 cols=100 wrap=on readonly></textarea>
+    </div>
+	<script src="index.js"></script>
+  </body>
+</html>
