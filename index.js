@@ -53,25 +53,41 @@ function format(text){
     
     var currIndent = 0;
     var newText = "";
+    var addNewLine = false;
+    var invalid = false;
     for(var index = 0; index < text.length; index++){
         if(text.charAt(index) == '#' && index < text.length - 1){
             for(const [key, value] of keywords){
                 if(text.startsWith(key, index + 1)){
+                    if(newText!=""){
+                        newText = newText + "\n";
+                    }
                     var result = extractToken(text, index, key, value);
+                    if(result.idx == -1){
+                        var end = index + 50;
+                        if(end >= text.length){
+                            end = text.length;
+                        }
+                        alert("invalid at: " + index + text.substring(index, end));
+                        invalid = true;
+                        return "";
+                    }
                     currIndent = currIndent + value.currentIndent;
-                    
-                    newText = newText + "\n" + addspace(currIndent) + result.token;
+                    newText = newText + addspace(currIndent) + result.token;
                     index = result.idx - 1;
                     currIndent = currIndent + value.nextIndent;
-                    newText = newText + "\n" + addspace(currIndent);
+                    addNewLine = true;
                     break;
                 }
             }
         }else{
+            if(addNewLine){
+                newText = newText + "\n" + addspace(currIndent);
+                addNewLine = false;
+            }
             newText = newText + text.charAt(index);
         }
     }
-    console.log("\n\n\n\n-----\n" + newText);
     return newText;
 }
 
